@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Employee ID Card Request</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <!-- Ionicons for icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- HEADER (Visible on Dashboard) -->
+        <header id="main-header" class="header">
+            <div class="user-profile">
+                <div class="avatar">
+                    <img src="https://ui-avatars.com/api/?name=Siripattra+D&background=random&color=fff" alt="User">
+                </div>
+                <div class="user-info">
+                    <h2>Siripattra D.</h2>
+                    <p>Senior Developer</p>
+                </div>
+            </div>
+        </header>
+
+        <main id="main-content">
+
+            <!-- VIEW 1: DASHBOARD -->
+            <section id="view-dashboard" class="view active">
+                <div class="section-title">
+                    <h3>Request History</h3>
+                </div>
+                <div id="request-list" class="request-list">
+                    <!-- Request items will be injected here by JS -->
+                </div>
+
+                <button id="btn-new-request" class="fab-button">
+                    <ion-icon name="add-outline"></ion-icon> New Request
+                </button>
+            </section>
+
+            <!-- VIEW 1.5: REASON SELECTION -->
+            <section id="view-reason" class="view">
+                <!-- STEPPER 1/5 -->
+                <div class="stepper">
+                    <div class="step-item active">1</div>
+                    <div class="step-line"></div>
+                    <div class="step-item">2</div>
+                    <div class="step-line"></div>
+                    <div class="step-item">3</div>
+                    <div class="step-line"></div>
+                    <div class="step-item">4</div>
+                    <div class="step-line"></div>
+                    <div class="step-item">5</div>
+                </div>
+                <div class="step-label">Step 1: Reason for Request</div>
+
+                <div class="reason-container">
+                    <label class="input-label">Select Reason</label>
+                    <div class="dropdown-wrapper">
+                        <select id="reason-select">
+                            <option value="New">New Position / Promotion</option>
+                            <option value="Damaged">Card Damaged / Expired</option>
+                            <option value="Lost">Lost Card</option>
+                            <option value="NameChange">Name Change</option>
+                        </select>
+                        <ion-icon name="chevron-down-outline" class="select-icon"></ion-icon>
+                    </div>
+
+                    <div id="upload-section" class="upload-section hidden">
+                        <label class="input-label">Police Report / Document</label>
+                        <div class="file-upload-box" id="file-drop-zone">
+                            <ion-icon name="cloud-upload-outline"></ion-icon>
+                            <p>Click to upload document</p>
+                            <span class="file-name" id="file-name">No file selected</span>
+                            <input type="file" id="file-input" hidden>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons bottom">
+                        <button class="btn-text btn-back-dashboard">Cancel</button>
+                        <button id="btn-reason-next" class="btn-primary">Next</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 2: GUIDELINES -->
+            <section id="view-guidelines" class="view">
+                <!-- STEPPER 2/5 -->
+                <div class="stepper">
+                    <div class="step-item completed">1</div>
+                    <div class="step-line completed"></div>
+                    <div class="step-item active">2</div>
+                    <div class="step-line"></div>
+                    <div class="step-item">3</div>
+                    <div class="step-line"></div>
+                    <div class="step-item">4</div>
+                    <div class="step-line"></div>
+                    <div class="step-item">5</div>
+                </div>
+                <div class="step-label">Step 2: Guidelines</div>
+
+                <div class="guidelines-container">
+                    <h3>Photo Guidelines</h3>
+
+                    <div class="comparison">
+                        <div class="example good">
+                            <div class="placeholder-img good-img"><ion-icon name="checkmark-circle"></ion-icon></div>
+                            <span>Good</span>
+                        </div>
+                        <div class="example bad">
+                            <div class="placeholder-img bad-img"><ion-icon name="close-circle"></ion-icon></div>
+                            <span>Bad</span>
+                        </div>
+                    </div>
+
+                    <div class="rules-container">
+                        <ul class="rules-list">
+                            <li>
+                                <div class="rule-icon"><ion-icon name="shirt-outline"></ion-icon></div>
+                                <div class="rule-content">
+                                    <strong>Uniform Required</strong>
+                                    <p>Wear the complete company uniform properly buttoned.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="rule-icon"><ion-icon name="glasses-outline"></ion-icon></div>
+                                <div class="rule-content">
+                                    <strong>No Accessories</strong>
+                                    <p>Remove glasses, hats, and large jewelry.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="rule-icon"><ion-icon name="sunny-outline"></ion-icon></div>
+                                <div class="rule-content">
+                                    <strong>Good Lighting</strong>
+                                    <p>Ensure face is evenly lit, avoiding strong shadows.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="rule-icon"><ion-icon name="square-outline"></ion-icon></div>
+                                <div class="rule-content">
+                                    <strong>Plain Background</strong>
+                                    <p>Use a white or solid light-colored background.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="rule-icon"><ion-icon name="happy-outline"></ion-icon></div>
+                                <div class="rule-content">
+                                    <strong>Expression</strong>
+                                    <p>Look straight ahead with a neutral or polite smile.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="action-buttons bottom">
+                        <button class="btn-text btn-back-dashboard">Cancel</button>
+                        <button id="btn-start-camera" class="btn-primary">I Understand</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 3: CAMERA -->
+            <section id="view-camera" class="view">
+                <!-- STEPPER 3/5 -->
+                <div class="stepper overlay-mode">
+                    <div class="step-item completed">1</div>
+                    <div class="step-line completed"></div>
+                    <div class="step-item completed">2</div>
+                    <div class="step-line completed"></div>
+                    <div class="step-item active">3</div>
+                    <div class="step-line"></div>
+                    <div class="step-item">4</div>
+                    <div class="step-line"></div>
+                    <div class="step-item">5</div>
+                </div>
+                <div class="step-label overlay-mode">Step 3: Capture Photo</div>
+
+                <div class="camera-container">
+                    <video id="camera-feed" autoplay playsinline muted></video>
+                    <div class="pose-overlay">
+                        <div class="guide-shape"></div>
+                        <p class="guide-text">Align face & Cross arms</p>
+                    </div>
+
+                    <div id="countdown-display" class="countdown hidden">5</div>
+
+                    <div class="camera-controls">
+                        <button class="btn-icon btn-cancel-camera"><ion-icon name="close-outline"></ion-icon></button>
+                        <button id="btn-capture" class="btn-shutter"></button>
+                        <button class="btn-icon btn-switch-camera"><ion-icon
+                                name="camera-reverse-outline"></ion-icon></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 4: EDITOR / PREVIEW -->
+            <section id="view-editor" class="view">
+                <!-- STEPPER 4/5 -->
+                <div class="stepper">
+                    <div class="step-item completed">1</div>
+                    <div class="step-line completed"></div>
+                    <div class="step-item completed">2</div>
+                    <div class="step-line completed"></div>
+                    <div class="step-item completed">3</div>
+                    <div class="step-line completed"></div>
+                    <div class="step-item active">4</div>
+                    <div class="step-line"></div>
+                    <div class="step-item">5</div>
+                </div>
+                <div class="step-label">Step 4: Review & Edit</div>
+
+                <div class="editor-container">
+                    <div class="canvas-wrapper">
+                        <!-- We use a canvas to draw the image and apply edits -->
+                        <canvas id="photo-canvas"></canvas>
+                        <div class="card-overlay">
+                            <!-- Simulated Card UI Overlay -->
+                            <div class="card-mockup">
+                                <div class="card-header">EMPLOYEE ID</div>
+                                <div class="card-name">SIRIPATTRA D.</div>
+                                <div class="card-role">Developer</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="editor-tools">
+                        <div class="tool-group">
+                            <label>Zoom</label>
+                            <input type="range" id="zoom-slider" min="1" max="2" step="0.1" value="1">
+                        </div>
+                        <div class="tool-group">
+                            <label>Brightness</label>
+                            <input type="range" id="brightness-slider" min="100" max="200" step="10" value="100">
+                        </div>
+                        <button id="btn-remove-bg" class="btn-secondary small">
+                            <ion-icon name="cut-outline"></ion-icon> Remove Background
+                        </button>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button id="btn-retake" class="btn-secondary">Retake</button>
+                        <button id="btn-confirm-photo" class="btn-primary">Confirm Photo</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 5: ADDRESS -->
+            <section id="view-address" class="view">
+                <!-- STEPPER 5/5 -->
+                <div class="stepper">
+                    <div class="step-item completed">1</div>
+                    <div class="step-line completed"></div>
+                    <div class="step-item completed">2</div>
+                    <div class="step-line completed"></div>
+                    <div class="step-item completed">3</div>
+                    <div class="step-line completed"></div>
+                    <div class="step-item completed">4</div>
+                    <div class="step-line completed"></div>
+                    <div class="step-item active">5</div>
+                </div>
+                <div class="step-label">Step 5: Confirm Delivery</div>
+
+                <h3>Select Delivery Address</h3>
+
+                <form id="address-form">
+                    <div class="address-list">
+                        <label class="address-option">
+                            <input type="radio" name="address" value="Office" checked>
+                            <div class="address-card">
+                                <span class="tag">Office</span>
+                                <p>123 Gravity Tower, Silom, Bangkok 10500</p>
+                            </div>
+                        </label>
+
+                        <label class="address-option">
+                            <input type="radio" name="address" value="Home">
+                            <div class="address-card">
+                                <span class="tag">Home</span>
+                                <p>88/9 Moo 5, Bang Na, Bangkok 10260</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <button type="button" id="btn-add-address" class="btn-text">+ Add New Address</button>
+
+                    <div id="new-address-input" class="new-address-box hidden">
+                        <textarea id="new-address-text" placeholder="Enter new delivery address..."></textarea>
+                    </div>
+
+                    <div class="action-buttons bottom">
+                        <button type="button" class="btn-secondary btn-back-editor">Back</button>
+                        <button type="submit" id="btn-submit-request" class="btn-primary">Confirm & Submit</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- VIEW 6: SUCCESS -->
+            <section id="view-success" class="view">
+                <!-- STEPPER DONE -->
+                <div class="stepper">
+                    <div class="step-item completed">1</div>
+                    <div class="step-line completed"></div>
+                    <div class="step-item completed">2</div>
+                    <div class="step-line completed"></div>
+                    <div class="step-item completed">3</div>
+                    <div class="step-line completed"></div>
+                    <div class="step-item completed">4</div>
+                    <div class="step-line completed"></div>
+                    <div class="step-item completed"><ion-icon name="checkmark"></ion-icon></div>
+                </div>
+                <div class="step-label">Completed</div>
+
+                <div class="success-content">
+                    <div class="success-icon">
+                        <ion-icon name="checkmark-circle"></ion-icon>
+                    </div>
+                    <h2>Process Complete</h2>
+                    <p>Your request has been sent to HR Admin for approval.</p>
+                    <button id="btn-home" class="btn-primary">Back to Home</button>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
