@@ -1,8 +1,16 @@
 // MOCK DATA
-let requests = [
+// MOCK DATA & STORAGE
+const DEFAULT_REQUESTS = [
     { id: 1, type: 'Lost Card', date: '2023-10-15', status: 'Completed', statusClass: 'completed' },
-    { id: 2, type: 'Damaged', date: '2023-12-01', status: 'Pending', statusClass: 'pending' }
+    { id: 2, type: 'Card Damaged / Expired', date: '2023-12-01', status: 'Pending', statusClass: 'pending' }
 ];
+
+let requests = JSON.parse(localStorage.getItem('requests')) || DEFAULT_REQUESTS;
+
+// Save defaults immediately if empty (optional, but good for demo)
+if (!localStorage.getItem('requests')) {
+    localStorage.setItem('requests', JSON.stringify(requests));
+}
 
 // STATE
 let currentPhoto = null;
@@ -237,15 +245,24 @@ addressForm.onsubmit = (e) => {
 
     // Simulate API Call
     setTimeout(() => {
+        // Get Reason Text
+        const reasonSelect = document.getElementById('reason-select');
+        const reasonText = reasonSelect.options[reasonSelect.selectedIndex].text;
+
         // Add new request to history
         const newReq = {
             id: Date.now(),
-            type: 'New Request',
+            type: reasonText, // Use the selected reason
             date: new Date().toISOString().split('T')[0],
             status: 'Waiting for HR Approval',
             statusClass: 'waiting'
         };
+
         requests.push(newReq);
+
+        // SAVE TO LOCAL STORAGE
+        localStorage.setItem('requests', JSON.stringify(requests));
+
         renderRequestList();
 
         switchView('success');
